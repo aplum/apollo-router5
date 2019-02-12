@@ -2,12 +2,12 @@
 
 # apollo-router5
 
-> Router5 integration with Apollo Client. Based on [redux-router5](https://github.com/router5/router5/tree/master/packages/redux-router5). Using router5 with apollo may remove the need to include [router5-listeners](http://router5.github.io/docs/listeners.html).
+> Router5 integration with Apollo Client. Based on [redux-router5](https://github.com/router5/router5/tree/master/packages/redux-router5). Using router5 with apollo may remove the need to include [router5-listeners](https://router5.js.org/advanced/listeners-plugin).
 
 ## Requirements
 
-- __[router5](https://github.com/router5/router5) >= 5.0.0__
-- __[apollo-link-state](https://github.com/apollographql/apollo-link-state) >= 0.3.1__
+- __[router5](https://github.com/router5/router5) >= 7.0.1__
+- __[apollo-link-state](https://github.com/apollographql/apollo-link-state) >= 0.4.2__
 
 ## How to use
 
@@ -70,7 +70,7 @@ const client = new ApolloClient({
 export default client;
 ```
 
-_Note: You may need [babel-plugin-transform-object-rest-spread](https://babeljs.io/docs/plugins/transform-object-rest-spread/) to use the syntax shown above._
+_Note: You may need [@babel/plugin-proposal-object-rest-spread](https://babeljs.io/docs/en/babel-plugin-proposal-object-rest-spread) to use the syntax shown above._
 
 ## Apollo Schema
 
