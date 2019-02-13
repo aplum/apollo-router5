@@ -13,6 +13,7 @@
     "release": "release-it",
     "lint": "eslint src/**/*.js",
     "build": "npm run lint && npm run build:es",
+    "build:watch": "clear && rimraf dist/es && babel -w src --out-dir dist/es",
     "build:es": "rimraf dist/es && babel src --out-dir dist/es"
   },
   "keywords": [
@@ -33,7 +34,7 @@
   "homepage": "https://github.com/aplum/apollo-router5#readme",
   "dependencies": {
     "graphql": "^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0",
-    "graphql-tag": "^2.10.0"
+    "graphql-tag": "^2.6.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
