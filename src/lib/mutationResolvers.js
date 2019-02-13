@@ -57,7 +57,7 @@ function writeNewState(cache, newState) {
                         error: newState[field].error || null,
                     };
                 }
-                else { 
+                else {
                     ns[field] = {
                         __typename: 'Router5_Route',
                         name: newState[field].name,
