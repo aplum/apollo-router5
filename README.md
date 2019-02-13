@@ -49,6 +49,10 @@ const cache = new InMemoryCache();
 
 const stateLink = withClientState({
     cache,
+    defaults: {
+        ...routerDefaults,
+        ...yourDefaults,
+    },
     resolvers: {
         ...yourResolvers,
         Mutation: {
@@ -56,15 +60,38 @@ const stateLink = withClientState({
             ...yourResolvers.Mutation,
         },
     },
-    defaults: {
-        ...routerDefaults,
-        ...yourDefaults,
-    },
 });
 
 const client = new ApolloClient({
     cache,
     link: ApolloLink.from([stateLink, new HttpLink()]),
+});
+
+export default client;
+```
+
+Or, if you're using Apollo Boost:
+
+```javascript
+// apollo-client.js
+import ApolloClient from 'apollo-boost';
+import { routerResolvers, routerDefaults } from 'apollo-router5';
+import { yourDefaults, yourResolvers } from './resolvers';
+
+const client = new ApolloClient({
+    clientState: {
+        defaults: {
+            ...routerDefaults,
+            ...yourDefaults,
+        },
+        resolvers: {
+            ...yourResolvers,
+            Mutation: {
+                ...routerResolvers,
+                ...yourResolvers.Mutation,
+            },
+        }
+    }
 });
 
 export default client;
@@ -144,6 +171,6 @@ export default graphql(mutations.navigateTo,{
 // Inside MyComponent, call this.props.navigateTo('myroute');
 ```
 
-## routeNodeSelector
+## createRouteNodeSelector
 
-I haven't created an equivalent of [routeNodeSelector](https://github.com/router5/router5/tree/master/packages/redux-router5#routenodeselector) from `redux-router5` yet. Please open an issue if this would be valuable to you. I haven't built anything with `redux-router5` and I'm still in the early stages of the app I created `apollo-router5` for, so I haven't had need of it yet.
+I haven't created an equivalent of [createRouteNodeSelector](https://github.com/router5/router5/tree/master/packages/redux-router5#route-node-selector) from `redux-router5` yet. Please open an issue if this would be valuable to you. I haven't built anything with `redux-router5` and I'm still in the early stages of the app I created `apollo-router5` for, so I haven't had need of it yet.
