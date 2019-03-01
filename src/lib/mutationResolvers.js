@@ -96,7 +96,7 @@ export const routerResolvers = {
         deps.router.navigate(
             args.name,
             args.params,
-            args.opts
+            args.opts ? args.opts : {}
         );
         return null;
     },
