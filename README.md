@@ -7,7 +7,7 @@
 ## Requirements
 
 - __[router5](https://github.com/router5/router5) >= 7.0.1__
-- __[apollo-link-state](https://github.com/apollographql/apollo-link-state) >= 0.4.2__
+- __[apollo-client](https://github.com/apollographql/apollo-client) >= 2.5.0__
 
 ## How to use
 
@@ -33,44 +33,7 @@ router.start();
 
 `apolloPluginFactory` creates a router5 plugin that calls mutations to keep your apollo state in sync with your router.
 
-You need to include `routerResolvers` and `routerDefaults` when configuring `apollo-link-state`:
-
-```javascript
-// apollo-client.js
-import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
-import { HttpLink } from 'apollo-link-http';
-import { withClientState } from 'apollo-link-state';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { routerResolvers, routerDefaults } from 'apollo-router5';
-import { yourDefaults, yourResolvers } from './resolvers';
-
-const cache = new InMemoryCache();
-
-const stateLink = withClientState({
-    cache,
-    defaults: {
-        ...routerDefaults,
-        ...yourDefaults,
-    },
-    resolvers: {
-        ...yourResolvers,
-        Mutation: {
-            ...routerResolvers,
-            ...yourResolvers.Mutation,
-        },
-    },
-});
-
-const client = new ApolloClient({
-    cache,
-    link: ApolloLink.from([stateLink, new HttpLink()]),
-});
-
-export default client;
-```
-
-Or, if you're using Apollo Boost:
+You need to include `routerResolvers` and `routerDefaults` when configuring `apollo-client`:
 
 ```javascript
 // apollo-client.js
@@ -84,15 +47,11 @@ const client = new ApolloClient({
             ...routerDefaults,
             ...yourDefaults,
         },
-        resolvers: {
-            ...yourResolvers,
-            Mutation: {
-                ...routerResolvers,
-                ...yourResolvers.Mutation,
-            },
-        }
+        resolvers: yourResolvers
     }
 });
+
+client.addResolvers(routerResolvers);
 
 export default client;
 ```

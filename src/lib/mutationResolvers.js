@@ -91,7 +91,7 @@ export function injectRouterToApollo(router) {
 }
 
 
-export const routerResolvers = {
+const routerMutationResolvers = {
     __ROUTER_NAVIGATE_TO: (_, args) => {
         deps.router.navigate(
             args.name,
@@ -155,4 +155,8 @@ export const routerResolvers = {
         });
         return null;
     },
+};
+
+export const routerResolvers = {
+    Mutation: routerMutationResolvers,
 };

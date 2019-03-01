@@ -48,7 +48,7 @@
     "rimraf": "^2.6.3"
   },
   "peerDependencies": {
-    "apollo-link-state": "^0.4.2",
+    "apollo-client": "^2.5.0",
     "router5": "^7.0.1"
   }
 }
