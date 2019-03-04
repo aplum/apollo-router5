@@ -125,6 +125,54 @@ export default graphql(mutations.navigateTo,{
 // Inside MyComponent, call this.props.navigateTo('myroute');
 ```
 
+## Integration with React
+
+To reduce boilerplate and provide the route as a prop to your React components, you could use a HOC such as the following:
+
+```javascript
+// withRoute.js
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
+const query = gql`
+    {
+        router @client {
+            route {
+                name
+                path
+                params
+                meta
+            }
+        }
+    }
+`;
+
+export default graphql(query, {
+    props: (props) => {
+        const r = props.data.router.route;
+        let route = null;
+        if (r) {
+            // Create new object to avoid modifying object from Apollo's cache.
+            route = {};
+            route.name = r.name;
+            route.path = r.path;
+            route.params = JSON.parse(r.params);
+            route.meta = JSON.parse(r.meta);
+        }
+        return { route };
+    },
+});
+```
+
+Using it on MyComponent:
+
+```javascript
+// MyComponent.js
+import withRoute from './withRoute';
+
+export default withRoute(MyComponent);
+```
+
 ## createRouteNodeSelector
 
 I haven't created an equivalent of [createRouteNodeSelector](https://github.com/router5/router5/tree/master/packages/redux-router5#route-node-selector) from `redux-router5` yet. Please open an issue if this would be valuable to you. I haven't built anything with `redux-router5` and I'm still in the early stages of the app I created `apollo-router5` for, so I haven't had need of it yet.
