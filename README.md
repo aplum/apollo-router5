@@ -80,16 +80,11 @@ type Router5_Route {
     name: String!
     path: String!
     params: String!
-    meta: Router5_Route_Meta!
-}
-
-type Router5_Route_Meta {
-    id: String!
-    params: String!
+    meta: String!
 }
 ```
 
-The `params` fields in the schema are JSON strings (from calling `JSON.stringify()` on the data from router5). I wasn't sure how else to make this accessible through graphql given the dynamic nature of the `params` data. If you have a suggestion for a better approach, please let me know or open an issue!
+The `params` and `meta` fields in the schema are JSON strings (from calling `JSON.stringify()` on the data from router5). I wasn't sure how else to make this accessible through graphql given the dynamic nature of the data in these fields. If you have a suggestion for a better approach, please let me know or open an issue!
 
 An example query:
 

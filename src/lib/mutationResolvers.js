@@ -34,10 +34,7 @@ const query = gql`
         name
         path
         params
-        meta {
-            id
-            params
-        }
+        meta
     }
 `;
 
@@ -63,11 +60,7 @@ function writeNewState(cache, newState) {
                         name: newState[field].name,
                         path: newState[field].path,
                         params: JSON.stringify(newState[field].params),
-                        meta: {
-                            __typename: 'Router5_Route_Meta',
-                            id: newState[field].meta.id,
-                            params: JSON.stringify(newState[field].meta.params),
-                        },
+                        meta: JSON.stringify(newState[field].meta),
                     };
                 }
             }
