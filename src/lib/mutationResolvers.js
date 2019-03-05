@@ -67,14 +67,20 @@ function writeNewState(cache, newState) {
         }
     }
     
-    const previousState = cache.readQuery({ query });
-    const data = {
-        router: {
-            ...previousState.router,
-            ...ns,
-        },
-    };
-    cache.writeData({ data });
+    try {
+        const previousState = cache.readQuery({ query });
+        const data = {
+            router: {
+                ...previousState.router,
+                ...ns,
+            },
+        };
+        cache.writeData({ data });
+    }
+    catch(error) {
+        console.warn('Something went wrong in apollo-router5. Maybe the routerDefaults aren\'t set up in your apollo client? This could happen after a client.resetStore()');
+        throw error;
+    }
 }
 
 
