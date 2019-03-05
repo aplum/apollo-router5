@@ -20,18 +20,19 @@
 ```javascript
 // index.js
 import createRouter from 'src/router/create-router';
-import { apolloPluginFactory, injectRouterToApollo } from 'apollo-router5';
+import { apolloPlugin, injectRouterToApollo } from 'apollo-router5';
 import client from 'src/apollo/apollo-client';
 
 const router = createRouter();
 injectRouterToApollo(router);
-router.usePlugin(apolloPluginFactory(client.mutate));
+router.usePlugin(apolloPlugin);
+router.setDependency('ApolloClient', client);
 router.start();
 ```
 
 `injectRouterToApollo` gives the `routerResolvers` from `apollo-router5` access to your router instance so it can translate mutations into router5 method calls (e.g. translates the `navigateTo` mutation to `router.navigate(...)`).
 
-`apolloPluginFactory` creates a router5 plugin that calls mutations to keep your apollo state in sync with your router.
+`apolloPlugin` creates a router5 plugin that calls mutations to keep your apollo state in sync with your router. You must call `router.setDependency('ApolloClient', client)` to give `apolloPlugin` access to your client so it can execute mutations.
 
 You need to include `routerResolvers` and `routerDefaults` when configuring `apollo-client`:
 

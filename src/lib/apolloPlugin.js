@@ -1,9 +1,9 @@
 import * as mutations from './mutations';
 
-function apolloPluginFactory(mutate) {
-    return () => ({
+export default function apolloPlugin(_, dependencies) {
+    return {
         onTransitionStart(toState, fromState) {
-            mutate({
+            dependencies.ApolloClient.mutate({
                 mutation: mutations.transitionStart,
                 variables: {
                     route: toState,
@@ -12,7 +12,7 @@ function apolloPluginFactory(mutate) {
             });
         },
         onTransitionSuccess(toState, fromState) {
-            mutate({
+            dependencies.ApolloClient.mutate({
                 mutation: mutations.transitionSuccess,
                 variables: {
                     route: toState,
@@ -21,7 +21,7 @@ function apolloPluginFactory(mutate) {
             });
         },
         onTransitionError(toState, fromState, err) {
-            mutate({
+            dependencies.ApolloClient.mutate({
                 mutation: mutations.transitionError,
                 variables: {
                     route: toState,
@@ -30,7 +30,5 @@ function apolloPluginFactory(mutate) {
                 },
             });
         },
-    });
+    };
 }
-
-export default apolloPluginFactory;
