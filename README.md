@@ -1,5 +1,9 @@
 [![npm version](https://badge.fury.io/js/apollo-router5.svg)](https://badge.fury.io/js/apollo-router5)
 
+# This project has been archived
+
+I will not be maintaining this project, and recommend using `router5` directly instead.
+
 # apollo-router5
 
 > Router5 integration with Apollo Client. Based on [redux-router5](https://github.com/router5/router5/tree/master/packages/redux-router5). Using router5 with apollo may remove the need to include [router5-listeners](https://router5.js.org/advanced/listeners-plugin).
